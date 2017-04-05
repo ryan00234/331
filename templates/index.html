@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Flasky{% endblock %}
+{% block page_content %}
+        <img src="/static/flask%20temp.png" class="img-rounded">
+    <div class="page-header">
+     </div>
+    <h4 class="text-nowrap">Hello, {{ user_agent }}!</h4>
+<div class="page-header">
+     </div>
+    <ul>
+    <li class="text-info">The local date and time is {{ moment(current_time).format('LLL') }}.</li>
+    <li class="text-danger">That was {{ moment(current_time).fromNow(refresh=True) }}</li>
+    </ul>
+        <address>
+  <strong>Full Name</strong><br>
+  <a href="mailto:#">mailto@somedomain.com</a>
+</address>
+{% endblock %}
