@@ -1,6 +1,8 @@
-#coding=utf-8
-<html>
-<head>
+{% extends "base.html" %}
+{% block title %}Flasky{% endblock %}
+{% block page_content %} <div class="page-header">
+
+    <head>
 	<title>Debug UI</title>
 	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.2.min.js"></script>
 
@@ -12,13 +14,15 @@
 </head>
 <body>
 
+<input type="text" id="myText" value="192.168.2.">
+<button onclick="update()">Confirm</button>
+
 <div>
 <B>Speed Limit: </B> dl:<span id ="total_dl_limit"></span>KB/s  up:<span id ="total_up_limit"></span>KB/s<p>
 </div>
 
 <!-- Task1 View -->
 <div id="t0">
-<h2>Task1</h2>
 <B>GCID:</B> <span id ="gcid_0"></span><p>
 <B>type:</B> <span id ="type_0"></span><p>
 <B>file_size:</B> <span id ="file_size_0"></span><p>
@@ -38,7 +42,7 @@ browser not support html5!
 </canvas>
 </div>
 
-<!-- Task2 View -->
+<!-- Task2 View >
 <div  id = "t1">
 <h2>Task2</h2>
 <B>GCID:</B> <span id ="gcid_1"></span><p>
@@ -60,7 +64,7 @@ browser not support html5!
 </canvas>
 </div>
 
-<!-- Task3 View -->
+<!-- Task3 View >
 <div  id = "t2">
 <h2>Task3</h2>
 <B>GCID:</B> <span id ="gcid_2"></span><p>
@@ -79,7 +83,7 @@ browser not support html5!
 <canvas id="cache_view_2" class="cv" height="800" width="1200">
 browser not support html5!
 </canvas>
-</div>
+</div-->
 
 
 
@@ -322,8 +326,9 @@ function update_task(task, task_index, speed)
 
 function update()
 {
+    var x = document.getElementById("myText").value;
   //$.getJSON('http://127.0.0.1:9090/json?callback=?', function(json) {
-  $.getJSON('http://192.168.2.1:9090/json?callback=?', function(json) {
+  $.getJSON('http://' + x + ':9090/json?callback=?', function(json) {
 
 	//$('#t0').hide();
 	//$('#t1').hide();
@@ -345,4 +350,4 @@ $(document).ready(function(){setInterval(update, 1000); });
 
 </body>
 
-</html>
+{% endblock %}
