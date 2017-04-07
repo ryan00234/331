@@ -30,6 +30,10 @@ def internal_server_error(e):
 def debug():
     return render_template('debug_ui_172.html')
 
+@app.route('/MySQL')
+def Mysql():
+    return render_template('Mysql.html')
+
 @app.route('/debug2')
 def debug2():
     return render_template('debug_connection_172.html')

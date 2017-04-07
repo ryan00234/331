@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block page_content %} <div class="page-header">
+    <script>
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("h1").hide();
+  });
+  $("#show").click(function(){
+    $("h1").show();
+  });
+});
+</script>
+</head>
+<body>
+<h1>Hello, {{ name }}!</h1>
+<button id="hide">隐藏</button>
+<button id="show">显示</button>
+</body>
+     </div>
+{% endblock %}
