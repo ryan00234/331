@@ -27,8 +27,12 @@ def internal_server_error(e):
     return render_template('500.html'), 500
 
 @app.route('/debug')
-def user():
+def debug():
     return render_template('debug_ui_172.html')
+
+@app.route('/debug2')
+def debug2():
+    return render_template('debug_connection_172.html')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

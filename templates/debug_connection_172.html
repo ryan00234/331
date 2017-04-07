@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{% block page_content %} <div class="page-header">
+
 <html>
 <head>
 	<title>Debug UDP tranmissiton</title>
@@ -10,6 +13,9 @@
     </style>
 </head>
 <body>
+
+<input type="text" id="myText" value="192.168.2.">
+<button onclick="update()">Confirm</button>
 
 <h2>Task1 Connection List</h2>
 <div id="task1_pipes_tbl"></div>
@@ -79,7 +85,8 @@ function to_table(all_connection_info, connection_num)
 
 function update()
 {
-  $.getJSON('http://192.168.2.1:9090/connectionjson?callback=?', function(json){ 
+    var x = document.getElementById("myText").value;
+  $.getJSON('http://' + x +':9090/connectionjson?callback=?', function(json){
   //$.getJSON('http://127.0.0.1:9090/connectionjson?callback=?', function(json){ 
 				to_table(json, json.length);  
 	});
@@ -92,3 +99,6 @@ $(document).ready(function(){setInterval(update, 500); });
 </body>
 
 </html>
+
+    </div>
+{% endblock %}
