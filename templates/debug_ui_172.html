@@ -19,28 +19,24 @@
     </span>
     <input type="text" class="form-control" id="myText" value="192.168.2.">
 </div>
-<br>
-<div>
-<B>Speed Limit: </B> dl:<span id ="total_dl_limit"></span>KB/s  up:<span id ="total_up_limit"></span>KB/s<p>
-</div>
-
+<B>Speed Limit: </B> dl:<span id ="total_dl_limit"></span>KB/s  up:<span id ="total_up_limit"></span>KB/s
 <!-- Task1 View -->
 <div id="t0">
-<B>GCID:</B> <span id ="gcid_0"></span><p>
-<B>type:</B> <span id ="type_0"></span><p>
-<B>file_size:</B> <span id ="file_size_0"></span><p>
-<B>downloaded ratio:</B> <span id ="downloaded_ratio_0"></span>%<p>
-<B style="color:#00f">downloaded ranges:</B> <span id ="downloaded_ranges_0"></span><p>
-<B style="color:#00f">verified ranges:</B> <span id ="verified_ranges_0"></span><p>
-<B style="color:#00f">uploadable ranges:</B> <span id ="uploadable_ranges_0"></span><p>
-<B style="color:#f00">download_pos:</B> <span id ="download_pos_0"></span><p>
-<B style="color:#0f0">stream_drag_pos:</B> <span id ="stream_drag_pos_0"></span><p>
-<B style="color:#0ff">stream_send_pos:</B> <span id ="stream_send_pos_0"></span><p>
-<B>download_speed:</B> <span id ="download_speed_0"></span>KB/s<p>
-<B>download speed limit:</B> <span id ="dl_limiter_0"></span>KB/s<p>
-<B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span id ="view_start_0"></span><p>
+<B>GCID:</B> <span id ="gcid_0"></span>
+<B>type:</B> <span id ="type_0"></span><br>
+<B>file_size:</B> <span id ="file_size_0"></span><br>
+<B>downloaded ratio:</B> <span id ="downloaded_ratio_0"></span>%<br>
+<B style="color: #0072b5;">downloaded ranges:</B> <span id ="downloaded_ranges_0"></span><br>
+<B style="color:#0072b5">verified ranges:</B> <span id ="verified_ranges_0"></span><br>
+<B style="color:#0072b5">uploadable ranges:</B> <span id ="uploadable_ranges_0"></span><br>
+<B style="color: #d62c1a">download_pos:</B> <span id ="download_pos_0"></span><br>
+<B style="color: #2ecc71">stream_drag_pos:</B> <span id ="stream_drag_pos_0"></span><br>
+<B style="color: #33caf2">stream_send_pos:</B> <span id ="stream_send_pos_0"></span><br>
+<B>download_speed:</B> <span id ="download_speed_0"></span>KB/s<br>
+<B>download speed limit:</B> <span id ="dl_limiter_0"></span>KB/s<br>
+<B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span id ="view_start_0"></span><br>
 
-<canvas id="cache_view_0" class="cv" height="800" width="1200">
+<canvas id="cache_view_0" class="cv" height="640" width="960">
 browser not support html5!
 </canvas>
 </div>
@@ -296,7 +292,7 @@ function update_task(task, task_index, speed)
 	{
 		var range = downloaded_ranges[i];
 
-		display_range(cache_view, '#00f', range[0]-view_start_array[task_index], range[1]-view_start_array[task_index]);
+		display_range(cache_view, '#0072b5', range[0]-view_start_array[task_index], range[1]-view_start_array[task_index]);
 	}
 
 	//重叠下载ranges
@@ -304,7 +300,7 @@ function update_task(task, task_index, speed)
 	for(var i = 0; i < overlap_download_ranges.length; i++)
 	{
 		var range = overlap_download_ranges[i];
-		display_range(cache_view, '#ff0', range[0]-view_start_array[task_index], range[1]-view_start_array[task_index]);
+		display_range(cache_view, '#f4d313', range[0]-view_start_array[task_index], range[1]-view_start_array[task_index]);
 	}
 
 	var range_height = cache_view.clientHeight/160;
@@ -316,15 +312,15 @@ function update_task(task, task_index, speed)
 	display_pos(cache_view, '#000', urgent_end-view_start_array[task_index], 0, 2, range_height);
 
 	//下载点
-	display_pos(cache_view, '#f00', task.download_pos-view_start_array[task_index], 0, 3, range_height);
+	display_pos(cache_view, '#d62c1a', task.download_pos-view_start_array[task_index], 0, 3, range_height);
 
 	//拖动点
 	for(var i = 0; i < task.stream_drag_pos.length; i++)
-		display_pos(cache_view, '#0f0', task.stream_drag_pos[i]-view_start_array[task_index], 0, 3, range_height - 2);
+		display_pos(cache_view, '#2ecc71', task.stream_drag_pos[i]-view_start_array[task_index], 0, 3, range_height - 2);
 
 	//推送点
 	for(var i = 0; i < task.stream_send_pos.length; i++)
-		display_pos(cache_view, '#0ff', task.stream_send_pos[i]-view_start_array[task_index], 2, 3, range_height - 2);
+		display_pos(cache_view, '#33caf2', task.stream_send_pos[i]-view_start_array[task_index], 2, 3, range_height - 2);
 }
 
 function update()

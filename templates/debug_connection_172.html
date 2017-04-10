@@ -42,7 +42,7 @@ function to_table(all_connection_info, connection_num)
    all_connection_info.sort( function(a, b) { return a.downspeed < b.downspeed ? 1 : -1;} );
 
    //show 
-   var tbl_begin_html = '<table cellpadding="0" cellspacing="0" border="1" width="100%">' + '<th>externalip</th> <th>internalip</th><th>type</th><th>port</th><th>connected</th><th>downspeed(KB)</th>';
+   var tbl_begin_html = '<table cellpadding="0" cellspacing="0" border="1" width="100%">' + '<td align="center">externalip</td> <td align="center">internalip</td><td align="center">type</th><td align="center">port</td><td align="center">connected</td><td align="center">downspeed(KB)</td>';
    var tbl_end_html   = "</table>";
 
    var cols = 6;

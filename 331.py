@@ -36,7 +36,7 @@ def SQL():
 
 @app.route('/test')
 def test():
-    return render_template('temp.html')
+    return render_template('static/docs/examples/navbars.html')
 
 @app.route('/Android')
 def Android():

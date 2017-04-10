@@ -1,78 +1,90 @@
-{% extends "bootstrap/base.html" %}
-
-{% block title %}Test Server{% endblock %}
-
-{% block head %}
-{{ super() }}
-<link rel="shortcut icon" href="{{ url_for('static', filename='python.png') }}" type="image/x-icon">
-<link rel="icon" href="{{ url_for('static', filename='python.png') }}" type="image/x-icon">
-{% endblock %}
-
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
-	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+    <title>Test Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{% block navbar %}
+    <!-- Loading Bootstrap -->
+    <link href="../../static/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<div class="navbar navbar-inverse" role="navigation" id="grad" style=" background:linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0.6))">
-    <div class="container">
+    <!-- Loading Flat UI -->
+    <link href="../../static/dist/css/flat-ui.css" rel="stylesheet">
+      <link rel="shortcut icon" href="{{ url_for('static', filename='python.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='python.png') }}" type="image/x-icon">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="../../dist/js/vendor/html5shiv.js"></script>
+      <script src="../../dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <style>
+      body {
+        min-height: 2000px;
+        padding-top: 70px;
+      }
+    </style>
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><!--span class="glyphicon glyphicon-home"></span--> Home</a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="/">Flasky</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/Android">Android</a></li>
-                <li><a href="/SQL">SQL</a></li>
-                <li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					Debug
-					<b class="caret"></b>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="/debug">Debug UI</a></li>
-					<li><a href="/debug2">Debug UDP</a></li>
-				</ul>
-			    </li>
-            </ul>
-
-            <ul class="nav pull-right">
-                <li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User
-					<b class="caret"></b>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="#">Login</a></li>
-					<li><a href="#">Logout</a></li>
-				</ul>
-                </li>
-            </ul>
-        </div>
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/Android">Android</a></li>
+            <li><a href="/SQL">MySQL</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Debug <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/debug">Debug UI</a></li>
+                <li class="divider"></li>
+                <li><a href="/debug2">Debug UDP</a></li>
+              </ul>
+            </li>
+              <form class="navbar-form navbar-right" action="#" role="search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                        <span class="input-group-btn">
+                        <button type="submit" class="btn"><span class="fui-search"></span></button>
+                        </span>
+                    </div>
+               </div>
+            </form>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span  class="glyphicon glyphicon-user"></span> User</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
     </div>
-</div>
 
-{% endblock %}
-
-{% block content %}
-<div class="container">
-{% for message in get_flashed_messages() %} <div class="alert alert-warning">
+    {% block content %}
+        <div class="container">
+        {% for message in get_flashed_messages() %} <div class="alert alert-warning">
              <button type="button" class="close" data-dismiss="alert">&times;</button>
              {{ message }}
-</div>
-{% endfor %}
+        </div>
+        {% endfor %}
     {% block page_content %}{% endblock %}
-</div>
-{% endblock %}
+        </div>
+    {% endblock %}
 
-{% block scripts %}
-{{ super() }}
-{{ moment.include_moment() }}
-{% endblock %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../../static/dist/js/vendor/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../static/dist/js/flat-ui.min.js"></script>
+
+    <script src="../../static/docs/assets/js/application.js"></script>
+
+  </body>
+</html>
+
+
