@@ -3,7 +3,6 @@
 {% block page_content %}
 
     <head>
-        <title>Line Chart</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
         <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
         <style>
@@ -12,12 +11,29 @@
         </style>
     </head>
     <body>
-        <canvas id="canvas" height="300" width="400"></canvas>
-
+        <canvas id="canvas1" height="300" width="400" ></canvas>
+        <canvas id="canvas2" height="300" width="300" class="pull-right"></canvas>
 
     <script>
+         var pieData = [
+                {
+                    value: 30,
+                    color:"#F38630"
+                },
+                {
+                    value : 50,
+                    color : "#E0E4CC"
+                },
+                {
+                    value : 100,
+                    color : "#69D2E7"
+                }
 
-        var lineChartData = {
+            ];
+
+    var myPie = new Chart(document.getElementById("canvas2").getContext("2d")).Pie(pieData);
+
+    var lineChartData = {
 　　　　　　　// x轴的标示
             labels : ["January","February","March","April","May","June","July"],
 　　　　　　　// 数据，数组中的每一个object代表一条线
@@ -155,8 +171,42 @@
         onAnimationComplete : null
     }
 
-    var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData, options);
+    var myLine = new Chart(document.getElementById("canvas1").getContext("2d")).Line(lineChartData, options);
 
+
+    Pie.defaults = {
+    //Boolean - Whether we should show a stroke on each segment
+    // 块和块之间是否有间距
+    segmentShowStroke : true,
+
+    //String - The colour of each segment stroke
+　　// 块和块之间间距的颜色
+    segmentStrokeColor : "#fff",
+
+    //Number - The width of each segment stroke
+　　// 块和块之间间距的宽度
+    segmentStrokeWidth : 2,
+
+    //Boolean - Whether we should animate the chart
+    animation : true,
+
+    //Number - Amount of animation steps
+    animationSteps : 100,
+
+    //String - Animation easing effect
+    animationEasing : "easeOutBounce",
+
+    //Boolean - Whether we animate the rotation of the Pie
+　　// 是否有从0度到360度的动画
+    animateRotate : true,
+
+    //Boolean - Whether we animate scaling the Pie from the centre
+　　// 是否有从中心到边缘的动画
+    animateScale : false,
+
+    //Function - Will fire on animation completion.
+    onAnimationComplete : null
+}
     </script>
     </body>
 {% endblock %}

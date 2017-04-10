@@ -48,15 +48,7 @@ def debug2():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    user_agent = request.headers.get('User-Agent')
-    form = NameForm()
-    if form.validate_on_submit():
-        old_name = session.get('name')
-        if old_name is not None and old_name != form.name.data:
-            flash('Your name have changed!')
-        session['name'] = form.name.data
-        return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'), user_agent=user_agent, current_time=datetime.utcnow())
+    return render_template('index.html', current_time=datetime.utcnow())
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9527, debug=True)
