@@ -13,9 +13,13 @@
 </head>
 <body>
 
-<input type="text" id="myText" value="192.168.2.">
-<button onclick="update()">Confirm</button>
-
+<div class="input-group" style="width: 25%">
+    <span class="input-group-btn">
+        <button onclick="update()" class="btn btn-default" type="button">Mobile IP <span class="glyphicon glyphicon-hand-right"></span></button>
+    </span>
+    <input type="text" class="form-control" id="myText" value="192.168.2.">
+</div>
+<br>
 <div>
 <B>Speed Limit: </B> dl:<span id ="total_dl_limit"></span>KB/s  up:<span id ="total_up_limit"></span>KB/s<p>
 </div>
@@ -348,6 +352,5 @@ $(document).ready(function(){setInterval(update, 1000); });
 </script>
 
 </body>
-
 </div>
 {% endblock %}

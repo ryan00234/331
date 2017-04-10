@@ -7,27 +7,31 @@
 	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.2.min.js"></script>
 	
     <style type="text/css">
-      .cv{
+      {
         height: 800px; width: 100%; border: 1px solid black;
       }
     </style>
 </head>
 <body>
 
-<input type="text" id="myText" value="192.168.2.">
-<button onclick="update()">Confirm</button>
+<div class="input-group" style="width: 25%">
+    <span class="input-group-btn">
+        <button onclick="update()" class="btn btn-default" type="button">Mobile IP <span class="glyphicon glyphicon-hand-right"></span> </button>
+    </span>
+    <input type="text" class="form-control" id="myText" value="192.168.2.">
+</div>
 
-<h2>Task1 Connection List</h2>
+<h3>Task1 Connection List</h3>
 <div id="task1_pipes_tbl"></div>
 
 <br/><br/>
 
-<h2>Task2 Connection List</h2>
+<h3>Task2 Connection List</h3>
 <div id="task2_pipes_tbl"></div>
 
 <br/><br/>
 
-<h2>Task3 Connection List</h2>
+<h3>Task3 Connection List</h3>
 <div id="task3_pipes_tbl"></div>
 
 <script type="text/javascript">

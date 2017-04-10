@@ -18,21 +18,29 @@ class NameForm(FlaskForm):
 
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
     return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
-def internal_server_error(e):
+def internal_server_error():
     return render_template('500.html'), 500
 
 @app.route('/debug')
 def debug():
     return render_template('debug_ui_172.html')
 
-@app.route('/MySQL')
-def Mysql():
-    return render_template('Mysql.html')
+@app.route('/SQL')
+def SQL():
+    return render_template('SQL.html')
+
+@app.route('/test')
+def test():
+    return render_template('temp.html')
+
+@app.route('/Android')
+def Android():
+    return render_template('Android.html')
 
 @app.route('/debug2')
 def debug2():
@@ -45,7 +53,7 @@ def index():
     if form.validate_on_submit():
         old_name = session.get('name')
         if old_name is not None and old_name != form.name.data:
-            flash('Looks like you have changed your name!')
+            flash('Your name have changed!')
         session['name'] = form.name.data
         return redirect(url_for('index'))
     return render_template('index.html', form=form, name=session.get('name'), user_agent=user_agent, current_time=datetime.utcnow())
