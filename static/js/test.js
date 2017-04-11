@@ -1,7 +1,8 @@
 /**
- * Created by work on 2017/4/11.
+ * Pie Chart
  */
-         var pieData = [
+
+    var pieData = [
                 {
                     value: 30,
                     color:"#F38630"
@@ -18,6 +19,40 @@
             ];
 
     var myPie = new Chart(document.getElementById("canvas2").getContext("2d")).Pie(pieData);
+
+/**
+ * Line Chart
+ */
+
+    var lineChartData = {
+　　　　　　　// x轴的标示
+            labels : ["January","February","March","April","May","June","July"],
+　　　　　　　// 数据，数组中的每一个object代表一条线
+            datasets : [
+                {
+　　　　　　　　　　　　// 颜色的使用类似于CSS，你也可以使用RGB、HEX或者HSL
+　　　　　　　　　　　　// rgba颜色中最后一个值代表透明度
+　　　　　　　　　　　　// 填充颜色
+                    fillColor : "rgba(220,220,220,0.5)",
+　　　　　　　　　　　　// 线的颜色
+                    strokeColor : "rgba(220,220,220,1)",
+　　　　　　　　　　　　// 点的填充颜色
+                    pointColor : "rgba(220,220,220,1)",
+　　　　　　　　　　　　// 点的边线颜色
+                    pointStrokeColor : "#fff",
+　　　　　　　　　　　　// 与x轴标示对应的数据
+                    data : [65,59,90,81,56,55,40]
+                },
+                {
+                    fillColor : "rgba(151,187,205,0)",
+                    strokeColor : "rgba(151,187,205,1)",
+                    pointColor : "rgba(151,187,205,1)",
+                    pointStrokeColor : "#fff",
+                    data : [28,48,40,19,96,27,100]
+                }
+            ]
+
+        }
 
     var options = {
         //Boolean - If we show the scale above the chart data
@@ -126,6 +161,9 @@
         // 动画完成后调用
         onAnimationComplete : null
     }
+
+    var myLine = new Chart(document.getElementById("canvas1").getContext("2d")).Line(lineChartData, options);
+
 
     Pie.defaults = {
     //Boolean - Whether we should show a stroke on each segment

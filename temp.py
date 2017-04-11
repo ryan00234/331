@@ -1,19 +1,9 @@
-#!/usr/bin/env python
-import os, time
+# -*- coding: utf-8 -*-
+from flask import Flask
+from flask_sockets import Sockets
 
 
-def adb_shell():
-    os.popen("adb wait-for-device")
-    print "start uninstall..."
-    for i in range(100000):
-        for cpuinfo in os.popen("adb shell dumpsys cpuinfo |grep bf.cloud.bfclouddemowithui").readlines():
-            str = cpuinfo.split(" ")
-            user = str[4]
-            kernel = str[7]
-            # os.popen("adb uninstall " + packageName)
-            print user
-            print kernel
-        time.sleep(1)
-
-if __name__ == "__main__":
-    adb_shell()
+app = Flask(__name__)
+sockets = Sockets(app)
+app.config.from_object('config')
+from app import views

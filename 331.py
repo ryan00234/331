@@ -1,10 +1,8 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify
+import random
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
-from flask_wtf import FlaskForm
 from datetime import datetime
-from wtforms import StringField, SubmitField
-from wtforms.validators import Required
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -12,18 +10,12 @@ app.config['SECRET_KEY'] = 'hard to guess string'
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 
-class NameForm(FlaskForm):
-    name = StringField('What is your name?', validators=[Required()])
-    submit = SubmitField('Submit')
-
-
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(e):
     return render_template('404.html'), 404
 
-
 @app.errorhandler(500)
-def internal_server_error():
+def internal_server_error(e):
     return render_template('500.html'), 500
 
 @app.route('/debug')
@@ -38,9 +30,16 @@ def SQL():
 def test():
     return render_template('temp.html')
 
+@app.route('/dynamic')
+def add_numbers():
+    label = ["January", "February", "March", "April", "May", "June", "July"]
+    data1 = random.sample(range(100), 7)
+    data2 = random.sample(range(100), 7)
+    return jsonify(label, data1, data2)
+
 @app.route('/Android')
 def Android():
-    return render_template('Android.html')
+    return render_template('Android.html',)
 
 @app.route('/debug2')
 def debug2():
