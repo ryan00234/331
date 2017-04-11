@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
-    <link href="../../static/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Loading Flat UI -->
-    <link href="../../static/dist/css/flat-ui.css" rel="stylesheet">
+    <link href="../static/dist/css/flat-ui.css" rel="stylesheet">
       <link rel="shortcut icon" href="{{ url_for('static', filename='python.png') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='python.png') }}" type="image/x-icon">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
@@ -33,11 +33,11 @@
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <a class="navbar-brand" href="/">Flasky</a>
+          <a class="navbar-brand" href="/">Home</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
+            <li><a href="/test">Test</a></li>
             <li><a href="/Android">Android</a></li>
             <li><a href="/SQL">MySQL</a></li>
             <li class="dropdown">
@@ -78,11 +78,11 @@
     {% endblock %}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../../static/dist/js/vendor/jquery.min.js"></script>
+    <script src="../static/dist/js/vendor/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../../static/dist/js/flat-ui.min.js"></script>
+    <script src="../static/dist/js/flat-ui.min.js"></script>
 
-    <script src="../../static/docs/assets/js/application.js"></script>
+    <script src="../static/docs/assets/js/application.js"></script>
 
   </body>
 </html>
