@@ -2,51 +2,110 @@
 
 {% block page_content %}
 
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-        <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
-        <style>
-            canvas{
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highstock Example</title>
+
+		<script src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+		<style>
+${demo.css}
+		</style>
+	</head>
+	<body>
+<script src="https://cdn.hcharts.cn/highstock/5.0.10/highstock.js"></script>
+<script src="https://cdn.hcharts.cn/highstock/5.0.10/modules/exporting.js"></script>
+
+<div id="container" style="height: 400px; width: 600px"></div>
+
+<script>
+Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+});
+
+// Create the chart
+Highcharts.stockChart('container', {
+    chart: {
+        type: 'area',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+        events: {
+            load: function () {
+
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                setInterval(function () {
+                    var x = (new Date()).getTime(), // current time
+                        y = Math.round(Math.random() * 100);
+                    series.addPoint([x, y], true, true);
+                }, 700);
             }
-        </style>
-    </head>
-    <body>
-        <canvas id="canvas1" height="300" width="400" ></canvas>
-        <canvas id="canvas2" height="300" width="300" class="pull-right"></canvas>
-
-    <script src="../static/js/chart.js"></script>
-    <script>
-        var lineChartData = {
-　　　　　　　// x轴的标示
-            labels : ["January","February","March","April","May","June","July"],
-　　　　　　　// 数据，数组中的每一个object代表一条线
-            datasets : [
-                {
-　　　　　　　　　　　　// 颜色的使用类似于CSS，你也可以使用RGB、HEX或者HSL
-　　　　　　　　　　　　// rgba颜色中最后一个值代表透明度
-　　　　　　　　　　　　// 填充颜色
-                    fillColor : "rgba(220,220,220,0.5)",
-　　　　　　　　　　　　// 线的颜色
-                    strokeColor : "rgba(220,220,220,1)",
-　　　　　　　　　　　　// 点的填充颜色
-                    pointColor : "rgba(220,220,220,1)",
-　　　　　　　　　　　　// 点的边线颜色
-                    pointStrokeColor : "#fff",
-　　　　　　　　　　　　// 与x轴标示对应的数据
-                    data : [65,59,90,81,56,55,40]
-                },
-                {
-                    fillColor : "rgba(151,187,205,0)",
-                    strokeColor : "rgba(151,187,205,1)",
-                    pointColor : "rgba(151,187,205,1)",
-                    pointStrokeColor : "#fff",
-                    data : [28,48,40,19,96,27,100]
-                }
-            ]
-
         }
+    },
 
-        var myLine = new Chart(document.getElementById("canvas1").getContext("2d")).Line(lineChartData, options);
-    </script>
-    </body>
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+
+    title: {
+        text: 'Live random data'
+    },
+    exporting: {
+        enabled: false
+    },
+       credits:{
+        enabled:false
+    },
+    plotOptions: {
+            area: {
+                fillOpacity: 0.2, // 指定所有面积图的透明度
+                pointStart: 1940,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+    series: [{
+        name: 'Random data',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -999; i <= 0; i += 1) {
+                data.push([
+                    time + i * 700,
+                    Math.round(Math.random() * 100)
+                ]);
+            }
+            return data;
+        }())
+    }]
+});
+
+
+		</script>
+	</body>
 {% endblock %}
