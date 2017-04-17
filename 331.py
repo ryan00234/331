@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
-import temp
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
+import temp
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -36,7 +36,8 @@ def user():
 @app.route('/dynamic')
 def dynamic():
     cpu = temp.cpu()
-    return jsonify(cpu=cpu)
+    mem = temp.mem()
+    return jsonify(cpu=cpu, mem=mem)
 
 @app.route('/Android')
 def Android():
@@ -51,4 +52,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(host='192.168.206.117', port=9527, debug=True)
+    app.run(host='127.0.0.1', port=9527, debug=True)
