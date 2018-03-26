@@ -1,227 +1,83 @@
-{% extends "base.html" %}
-{% block page_content %}
+# -*- coding: utf-8 -*-
+from flask import Flask, render_template, jsonify, request
+from flask_bootstrap import Bootstrap
+from flask_moment import Moment
+import temp
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Highstock Example</title>
+device_id = '192.168.17.157:5555'
 
-		<script src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
-		<style>
-${demo.css}
-		</style>
-	</head>
-	<body class="jumbotron">
-<script src="https://cdn.hcharts.cn/highstock/5.0.10/highstock.js"></script>
-<script src="https://cdn.hcharts.cn/highstock/5.0.10/modules/exporting.js"></script>
-<script>
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-</script>
-<div id="container_cpu" style="height: 400px; width: 1000px"></div>
-<div id="container_mem" style="height: 400px; width: 1000px"></div>
+app = Flask(__name__)
+app.config.from_object('config')
 
-<script>
-Highcharts.setOptions({
-    global: {
-        useUTC: false
-    }
-});
-// Create the chart
-Highcharts.stockChart('container_mem', {
-    chart: {
-        style: {
-        fontFamily: "",
-        fontSize: '12px',
-        fontWeight: 'bold',
-        color: '#006cee'
-    },
-        type: 'areaspline',
-            animation: Highcharts.svg, // don't animate in old IE
-            marginRight: 10,
-        events: {
-            load: function () {
-                // set up the updating of the chart each second
-                var series = this.series[0];
-                setInterval(function () {
-                    $.getJSON($SCRIPT_ROOT + "/dynamic", { }, function(json){
-            //          alert("JSON Data: " + json.cpu);
-                        var x = (new Date()).getTime(), // current time
-                        y = json.mem/1000
-                    series.addPoint([x, y], true, true);
-                    });
-                }, 1000);
-            }
-        }
-    },
-    rangeSelector: {
-        buttons: [{
-            count: 1,
-            type: 'minute',
-            text: '1M'
-        }, {
-            count: 5,
-            type: 'minute',
-            text: '5M'
-        }, {
-            type: 'all',
-            text: 'All'
-        }],
-        inputEnabled: false,
-        selected: 0
-    },
-    title: {
-        text: 'Memory Info'
-    },
-    tooltip: {
-          //  valueDecimals: 2,
-         //   valuePrefix: '$',
-            valueSuffix: ' M'
-        },
-    exporting: {
-        enabled: false
-    },
-       credits:{
-        enabled:false
-    },
-    plotOptions: {
-            area: {
-                fillOpacity: 0.2, // 指定所有面积图的透明度
-                pointStart: 1940,
-                marker: {
-                    enabled: false,
-                    symbol: 'circle',
-                    radius: 2,
-                    states: {
-                        hover: {
-                            enabled: true
-                        }
-                    }
-                }
-            }
-        },
-    series: [{
-        name: 'Memory Info',
-        data: (function () {
-            // generate an array of random data
-            var data = [],
-                time = (new Date()).getTime(),
-                i;
-            for (i = -999; i <= 0; i += 1) {
-                data.push([
-                    time + i * 1000,
-                    0
-                ]);
-            }
-            return data;
-        }())
-    }]
-});
+bootstrap = Bootstrap(app)
+moment = Moment(app)
 
-</script>
 
-<script>
-Highcharts.setOptions({
-    global: {
-        useUTC: false
-    }
-});
-// Create the chart
-Highcharts.stockChart('container_cpu', {
-    chart: {
-        type: 'areaspline',
-            animation: Highcharts.svg, // don't animate in old IE
-            marginRight: 10,
-        events: {
-            load: function () {
-                // set up the updating of the chart each second
-                var series = this.series;
-                $.getJSON($SCRIPT_ROOT + "/dynamic", { }, function(json){
-                setInterval(function () {
-                    series[0].addPoint([(new Date()).getTime(), json.cpu[0]], true, true);
-                    series[1].addPoint([(new Date()).getTime(), json.cpu[1]], true, true);
-                    }, 1000);
-                });
-            }
-        }
-    },
-    rangeSelector: {
-        buttons: [{
-            count: 1,
-            type: 'minute',
-            text: '1M'
-        }, {
-            count: 5,
-            type: 'minute',
-            text: '5M'
-        }, {
-            type: 'all',
-            text: 'All'
-        }],
-        inputEnabled: false,
-        selected: 0
-    },
-    title: {
-        text: 'CPU Info'
-    },
-    tooltip: {
-        shared: true,
-        valueSuffix: ' %'
-        },
-    exporting: {
-        enabled: false
-    },
-       credits:{
-        enabled:false
-    },
-    plotOptions: {
-            area: {
-                fillOpacity: 0.1, // 指定所有面积图的透明度
-                pointStart: 1940,
-                marker: {
-                    enabled: false,
-                    symbol: 'circle',
-                    radius: 2,
-                    states: {
-                        hover: {
-                            enabled: true
-                        }
-                    }
-                }
-            }
-        },
-    series: [{
-        name: 'CPU User',
-        data: (function () {
-            // generate an array of random data
-            var data = [],
-                time = (new Date()).getTime(),
-                i;
-            for (i = -999; i <= 0; i += 1) {
-                data.push([
-                    time + i * 1000,
-                    0
-                ]);
-            }
-            return data;
-        }())
-    },
-        {
-        name: 'CPU Kelnel',
-        data: (function () {
-            // generate an array of random data
-            var data = [],
-                time = (new Date()).getTime(),
-                i;
-            for (i = -999; i <= 0; i += 1) {
-                data.push([
-                    time + i * 1000,
-                    0
-                ]);
-            }
-            return data;
-        }())
-        }
-    ]
-});
-		</script>
-	</body>
-{% endblock %}
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
+
+@app.route('/debug')
+def debug():
+    return render_template('debug_ui_172.html')
+
+
+@app.route('/debug2')
+def debug2():
+    return render_template('debug_connection_172.html')
+
+
+@app.route('/SQL')
+def sql():
+    return render_template('SQL.html')
+
+
+@app.route('/test')
+def test():
+    # device = request.args.get('device', 0, type=str)
+    temp.os.popen('adb connect ' + device_id)
+    return render_template('temp.html')
+
+
+@app.route('/device')
+def device_set():
+    global device_id
+    device = request.args.get('device', '')
+    temp.os.popen('adb connect ' + device)
+    device_id = device
+    max1 = temp.os.popen('adb -s ' + device_id + ' shell getprop|grep heapgrowthlimit').readline()
+    max2 = temp.os.popen('adb -s ' + device_id + ' shell getprop|grep dalvik.vm.heapstartsize').readline()
+    max3 = temp.os.popen('adb -s ' + device_id + ' shell getprop|grep dalvik.vm.heapsize').readline()
+    return jsonify(max1=max1[-8:], max2=max2[-8:], max3=max3[-8:])
+
+
+@app.route('/cpu_info')
+def cpu_info():
+    cpu = temp.cpu(device_id)
+    return jsonify(cpu=cpu)
+
+
+@app.route('/mem_info')
+def mem_info():
+    mem = temp.mem(device_id)
+    return jsonify(mem=mem)
+
+
+@app.route('/Android')
+def android():
+    return render_template('Android.html')
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5000)
