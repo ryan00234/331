@@ -1,352 +1,331 @@
 {% extends "base.html" %}
-{% block page_content %} <div class="page-header">
+{% block page_content %}
+    <div class="page-header">
 
-    <head>
-	<title>Debug UI</title>
-	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.2.min.js"></script>
+        <head>
+            <title>Debug UI</title>
+            <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.2.min.js"></script>
 
-    <style type="text/css">
-      .cv{
-        border: 1px solid black;
-      }
-    </style>
-</head>
-<body>
+            <style type="text/css">
+                .cv {
+                    border: 1px solid black;
+                }
+            </style>
+        </head>
+        <body>
 
-<div class="input-group" style="width: 25%">
+        <div class="input-group" style="width: 25%">
     <span class="input-group-btn">
-        <button onclick="update()" class="btn btn-default" type="button">Mobile IP <span class="glyphicon glyphicon-hand-right"></span></button>
+        <button onclick="update()" class="btn btn-default" type="button">Mobile IP <span
+                class="glyphicon glyphicon-hand-right"></span></button>
     </span>
-    <input type="text" class="form-control" id="myText" value="192.168.2.">
-</div>
-<B>Speed Limit: </B> dl:<span id ="total_dl_limit"></span>KB/s  up:<span id ="total_up_limit"></span>KB/s
-<!-- Task1 View -->
-<div id="t0">
-<B>GCID:</B> <span id ="gcid_0"></span>
-<B>type:</B> <span id ="type_0"></span><br>
-<B>file_size:</B> <span id ="file_size_0"></span><br>
-<B>downloaded ratio:</B> <span id ="downloaded_ratio_0"></span>%<br>
-<B style="color: #0072b5;">downloaded ranges:</B> <span id ="downloaded_ranges_0"></span><br>
-<B style="color:#0072b5">verified ranges:</B> <span id ="verified_ranges_0"></span><br>
-<B style="color:#0072b5">uploadable ranges:</B> <span id ="uploadable_ranges_0"></span><br>
-<B style="color: #d62c1a">download_pos:</B> <span id ="download_pos_0"></span><br>
-<B style="color: #2ecc71">stream_drag_pos:</B> <span id ="stream_drag_pos_0"></span><br>
-<B style="color: #33caf2">stream_send_pos:</B> <span id ="stream_send_pos_0"></span><br>
-<B>download_speed:</B> <span id ="download_speed_0"></span>KB/s<br>
-<B>download speed limit:</B> <span id ="dl_limiter_0"></span>KB/s<br>
-<B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span id ="view_start_0"></span><br>
+            <input type="text" class="form-control" id="myText" value="192.168.2.">
+        </div>
+        <B>Speed Limit: </B> dl:<span id="total_dl_limit"></span>KB/s up:<span id="total_up_limit"></span>KB/s
+        <!-- Task1 View -->
+        <div id="t0">
+            <B>GCID:</B> <span id="gcid_0"></span>
+            <B>type:</B> <span id="type_0"></span><br>
+            <B>file_size:</B> <span id="file_size_0"></span><br>
+            <B>downloaded ratio:</B> <span id="downloaded_ratio_0"></span>%<br>
+            <B style="color: #0072b5;">downloaded ranges:</B> <span id="downloaded_ranges_0"></span><br>
+            <B style="color:#0072b5">verified ranges:</B> <span id="verified_ranges_0"></span><br>
+            <B style="color:#0072b5">uploadable ranges:</B> <span id="uploadable_ranges_0"></span><br>
+            <B style="color: #d62c1a">download_pos:</B> <span id="download_pos_0"></span><br>
+            <B style="color: #2ecc71">stream_drag_pos:</B> <span id="stream_drag_pos_0"></span><br>
+            <B style="color: #33caf2">stream_send_pos:</B> <span id="stream_send_pos_0"></span><br>
+            <B>download_speed:</B> <span id="download_speed_0"></span>KB/s<br>
+            <B>download speed limit:</B> <span id="dl_limiter_0"></span>KB/s<br>
+            <B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span
+                id="view_start_0"></span><br>
 
-<canvas id="cache_view_0" class="cv" height="640" width="960">
-browser not support html5!
-</canvas>
-</div>
+            <canvas id="cache_view_0" class="cv" height="640" width="960">
+                browser not support html5!
+            </canvas>
+        </div>
 
-<!-- Task2 View >
-<div  id = "t1">
-<h2>Task2</h2>
-<B>GCID:</B> <span id ="gcid_1"></span><p>
-<B>type:</B> <span id ="type_1"></span><p>
-<B>file_size:</B> <span id ="file_size_1"></span><p>
-<B>downloaded ratio:</B> <span id ="downloaded_ratio_1"></span>%<p>
-<B style="color:#00f">downloaded ranges:</B> <span id ="downloaded_ranges_1"></span><p>
-<B style="color:#00f">verified ranges:</B> <span id ="verified_ranges_1"></span><p>
-<B style="color:#00f">uploadable ranges:</B> <span id ="uploadable_ranges_1"></span><p>
-<B style="color:#f00">download_pos:</B> <span id ="download_pos_1"></span><p>
-<B style="color:#0f0">stream_drag_pos:</B> <span id ="stream_drag_pos_1"></span><p>
-<B style="color:#0ff">stream_send_pos:</B> <span id ="stream_send_pos_1"></span><p>
-<B>download_speed:</B> <span id ="download_speed_1"></span>KB/s<p>
-<B>speed limit:</B> <span id ="dl_limiter_1"></span>KB/s<p>
-<B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span id ="view_start_1"></span><p>
+        <!-- Task2 View >
+        <div  id = "t1">
+        <h2>Task2</h2>
+        <B>GCID:</B> <span id ="gcid_1"></span><p>
+        <B>type:</B> <span id ="type_1"></span><p>
+        <B>file_size:</B> <span id ="file_size_1"></span><p>
+        <B>downloaded ratio:</B> <span id ="downloaded_ratio_1"></span>%<p>
+        <B style="color:#00f">downloaded ranges:</B> <span id ="downloaded_ranges_1"></span><p>
+        <B style="color:#00f">verified ranges:</B> <span id ="verified_ranges_1"></span><p>
+        <B style="color:#00f">uploadable ranges:</B> <span id ="uploadable_ranges_1"></span><p>
+        <B style="color:#f00">download_pos:</B> <span id ="download_pos_1"></span><p>
+        <B style="color:#0f0">stream_drag_pos:</B> <span id ="stream_drag_pos_1"></span><p>
+        <B style="color:#0ff">stream_send_pos:</B> <span id ="stream_send_pos_1"></span><p>
+        <B>download_speed:</B> <span id ="download_speed_1"></span>KB/s<p>
+        <B>speed limit:</B> <span id ="dl_limiter_1"></span>KB/s<p>
+        <B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span id ="view_start_1"></span><p>
 
-<canvas id="cache_view_1" class="cv" height="800" width="1200">
-browser not support html5!
-</canvas>
-</div>
+        <canvas id="cache_view_1" class="cv" height="800" width="1200">
+        browser not support html5!
+        </canvas>
+        </div>
 
-<!-- Task3 View >
-<div  id = "t2">
-<h2>Task3</h2>
-<B>GCID:</B> <span id ="gcid_2"></span><p>
-<B>type:</B> <span id ="type_2"></span><p>
-<B>file_size:</B> <span id ="file_size_2"></span><p>
-<B>downloaded ratio:</B> <span id ="downloaded_ratio_2"></span>%<p>
-<B style="color:#00f">downloaded ranges:</B> <span id ="downloaded_ranges_2"></span><p>
-<B style="color:#00f">verified ranges:</B> <span id ="verified_ranges_2"></span><p>
-<B style="color:#00f">uploadable ranges:</B> <span id ="uploadable_ranges_2"></span><p>
-<B style="color:#f00">download_pos:</B> <span id ="download_pos_2"></span><p>
-<B style="color:#0f0">stream_drag_pos:</B> <span id ="stream_drag_pos_2"></span><p>
-<B style="color:#0ff">stream_send_pos:</B> <span id ="stream_send_pos_2"></span><p>
-<B>download_speed:</B> <span id ="download_speed_2"></span>KB/s<p>
-<B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span id ="view_start_1"></span><p>
+        <!-- Task3 View >
+        <div  id = "t2">
+        <h2>Task3</h2>
+        <B>GCID:</B> <span id ="gcid_2"></span><p>
+        <B>type:</B> <span id ="type_2"></span><p>
+        <B>file_size:</B> <span id ="file_size_2"></span><p>
+        <B>downloaded ratio:</B> <span id ="downloaded_ratio_2"></span>%<p>
+        <B style="color:#00f">downloaded ranges:</B> <span id ="downloaded_ranges_2"></span><p>
+        <B style="color:#00f">verified ranges:</B> <span id ="verified_ranges_2"></span><p>
+        <B style="color:#00f">uploadable ranges:</B> <span id ="uploadable_ranges_2"></span><p>
+        <B style="color:#f00">download_pos:</B> <span id ="download_pos_2"></span><p>
+        <B style="color:#0f0">stream_drag_pos:</B> <span id ="stream_drag_pos_2"></span><p>
+        <B style="color:#0ff">stream_send_pos:</B> <span id ="stream_send_pos_2"></span><p>
+        <B>download_speed:</B> <span id ="download_speed_2"></span>KB/s<p>
+        <B>view: 20MB/line(vod), 1MB/line(live), total: 40 lines, view_start: </B><span id ="view_start_1"></span><p>
 
-<canvas id="cache_view_2" class="cv" height="800" width="1200">
-browser not support html5!
-</canvas>
-</div-->
-
-
-
-<script type="text/javascript">
-
-var view_start_array =[0,0,0];
-var row_width = 1*1024*1024;
-var row_num = 40;
-
-function display_range(cache_view, colour, start, end)
-{
-	var context = cache_view.getContext('2d');
-	context.fillStyle = colour;
-
-	var full_range_width = cache_view.width;
-	var range_height = cache_view.clientHeight/row_num;
-	var draw_ratio = full_range_width*1.0/row_width;
-
-	var range_start_row = Math.floor(start/row_width);
-	var range_end_row = Math.floor(end/row_width);
-	if(range_start_row == range_end_row)
-	{
-		var width = Math.round((end - start)*draw_ratio);
-		var draw_start = Math.floor((start%row_width)*draw_ratio);
-		if(draw_start + width > full_range_width)
-		{
-			width = full_range_width - draw_start;
-		}
-		//留点空间显示末端的数据
-		if(width < 1)
-		{
-			width = 1;
-		}
-
-		context.fillRect(draw_start, range_start_row*range_height, width, range_height);
-	}
-	else
-	{
-		for(var row = range_start_row; row < range_end_row; row++)
-		{
-			if(row == range_start_row)
-			{
-				var width = Math.round((row_width - start%row_width)*draw_ratio);
-				var draw_start = Math.floor((start%row_width)*draw_ratio);
-				if(draw_start + width > full_range_width)
-				{
-					width = full_range_width - draw_start;
-				}
-				//留点空间显示末端的数据
-				if(width < 1)
-				{
-					width = 1;
-				}
-
-				context.fillRect(draw_start, row*range_height, width, range_height);
-			}
-			else
-			{
-				context.fillRect(0, row*range_height, full_range_width, range_height);
-			}
-		}
-
-		var width = Math.round((end%row_width)*draw_ratio);
-
-		if(width < 1)
-		{
-			width = 1;
-		}
-
-		context.fillRect(0, range_end_row*range_height, width, range_height);
-	}
-}
-
-function display_pos(cache_view, colour, pos, y_pos, width, height)
-{
-	var context = cache_view.getContext('2d');
-	context.fillStyle = colour;
-
-	var full_range_width = cache_view.width;
-	var range_height = cache_view.clientHeight/row_num;
-	var draw_ratio = full_range_width*1.0/row_width;
-	var pos_row = Math.floor(pos/row_width);
-	var draw_start = Math.floor((pos%row_width)*draw_ratio);
-	context.fillRect(draw_start, pos_row*range_height + y_pos, width, range_height);
-}
-
-function type2string(type)
-{
-     switch ( type )
-     {
-     case 0: return "vod";
-     case 1: return "predownload";
-     case 2: return "download";
-     case 3: return "live";
-     }
-}
-
-function update_task(task, task_index, speed)
-{
-    $('#gcid_' + task_index).text(task.gcid);
-    $('#type_' + task_index).text(type2string(task.type));
-
-    $('#file_size_' + task_index).text(task.file_size);
-    $('#downloaded_ratio_' + task_index).text(task.downloaded_ratio);
-
-	var items = [];
-	var ranges = task.downloaded_ranges;
-	for(var i = 0; i < ranges.length; i++)
-	{
-		var range = ranges[i];
-
-		items.push("[" + range[0] + ", " + range[1] + "]");
-	}
-	items.join(",");
-
-	$('#downloaded_ranges_' + task_index).text(items.toString());
-
-	items = [];
-	ranges = task.verified_ranges;
-	for(var i = 0; i < ranges.length; i++)
-	{
-		var range = ranges[i];
-		items.push("[" + range[0] + ", " + range[1] + "]");
-	}
-	items.join(",");
-	$('#verified_ranges_' + task_index).text(items.toString());
-
-	items = [];
-	ranges = task.uploadable_ranges;
-	for(var i = 0; i < ranges.length; i++)
-	{
-		var range = ranges[i];
-		items.push("[" + range[0] + ", " + range[1] + "]");
-	}
-	items.join(",");
-
-	$('#uploadable_ranges_' + task_index).text(items.toString());
+        <canvas id="cache_view_2" class="cv" height="800" width="1200">
+        browser not support html5!
+        </canvas>
+        </div-->
 
 
-	$('#download_pos_' + task_index).text(task.download_pos);
+        <script type="text/javascript">
+
+            var view_start_array = [0, 0, 0];
+            var row_width = 1 * 1024 * 1024;
+            var row_num = 40;
+
+            function display_range(cache_view, colour, start, end) {
+                var context = cache_view.getContext('2d');
+                context.fillStyle = colour;
+
+                var full_range_width = cache_view.width;
+                var range_height = cache_view.clientHeight / row_num;
+                var draw_ratio = full_range_width * 1.0 / row_width;
+
+                var range_start_row = Math.floor(start / row_width);
+                var range_end_row = Math.floor(end / row_width);
+                if (range_start_row == range_end_row) {
+                    var width = Math.round((end - start) * draw_ratio);
+                    var draw_start = Math.floor((start % row_width) * draw_ratio);
+                    if (draw_start + width > full_range_width) {
+                        width = full_range_width - draw_start;
+                    }
+                    //留点空间显示末端的数据
+                    if (width < 1) {
+                        width = 1;
+                    }
+
+                    context.fillRect(draw_start, range_start_row * range_height, width, range_height);
+                }
+                else {
+                    for (var row = range_start_row; row < range_end_row; row++) {
+                        if (row == range_start_row) {
+                            var width = Math.round((row_width - start % row_width) * draw_ratio);
+                            var draw_start = Math.floor((start % row_width) * draw_ratio);
+                            if (draw_start + width > full_range_width) {
+                                width = full_range_width - draw_start;
+                            }
+                            //留点空间显示末端的数据
+                            if (width < 1) {
+                                width = 1;
+                            }
+
+                            context.fillRect(draw_start, row * range_height, width, range_height);
+                        }
+                        else {
+                            context.fillRect(0, row * range_height, full_range_width, range_height);
+                        }
+                    }
+
+                    var width = Math.round((end % row_width) * draw_ratio);
+
+                    if (width < 1) {
+                        width = 1;
+                    }
+
+                    context.fillRect(0, range_end_row * range_height, width, range_height);
+                }
+            }
+
+            function display_pos(cache_view, colour, pos, y_pos, width, height) {
+                var context = cache_view.getContext('2d');
+                context.fillStyle = colour;
+
+                var full_range_width = cache_view.width;
+                var range_height = cache_view.clientHeight / row_num;
+                var draw_ratio = full_range_width * 1.0 / row_width;
+                var pos_row = Math.floor(pos / row_width);
+                var draw_start = Math.floor((pos % row_width) * draw_ratio);
+                context.fillRect(draw_start, pos_row * range_height + y_pos, width, range_height);
+            }
+
+            function type2string(type) {
+                switch (type) {
+                    case 0:
+                        return "vod";
+                    case 1:
+                        return "predownload";
+                    case 2:
+                        return "download";
+                    case 3:
+                        return "live";
+                }
+            }
+
+            function update_task(task, task_index, speed) {
+                $('#gcid_' + task_index).text(task.gcid);
+                $('#type_' + task_index).text(type2string(task.type));
+
+                $('#file_size_' + task_index).text(task.file_size);
+                $('#downloaded_ratio_' + task_index).text(task.downloaded_ratio);
+
+                var items = [];
+                var ranges = task.downloaded_ranges;
+                for (var i = 0; i < ranges.length; i++) {
+                    var range = ranges[i];
+
+                    items.push("[" + range[0] + ", " + range[1] + "]");
+                }
+                items.join(",");
+
+                $('#downloaded_ranges_' + task_index).text(items.toString());
+
+                items = [];
+                ranges = task.verified_ranges;
+                for (var i = 0; i < ranges.length; i++) {
+                    var range = ranges[i];
+                    items.push("[" + range[0] + ", " + range[1] + "]");
+                }
+                items.join(",");
+                $('#verified_ranges_' + task_index).text(items.toString());
+
+                items = [];
+                ranges = task.uploadable_ranges;
+                for (var i = 0; i < ranges.length; i++) {
+                    var range = ranges[i];
+                    items.push("[" + range[0] + ", " + range[1] + "]");
+                }
+                items.join(",");
+
+                $('#uploadable_ranges_' + task_index).text(items.toString());
 
 
-	items = []
-	for(var i = 0; i < task.stream_drag_pos.length; i++)
-		items.push(task.stream_drag_pos[i]);
-	items.join(",");
-
-	$('#stream_drag_pos_' + task_index).text(items.toString());
-
- 	items = []
-	for(var i = 0; i < task.stream_send_pos.length; i++)
-		items.push(task.stream_send_pos[i]);
-	items.join(",");
-	$('#stream_send_pos_' + task_index).text(items.toString());
-
-	$('#download_speed_' + task_index).text(Math.round(task.download_speed/1024));
-
-	$('#dl_limiter_' + task_index).text(speed/1024);
+                $('#download_pos_' + task_index).text(task.download_pos);
 
 
+                items = []
+                for (var i = 0; i < task.stream_drag_pos.length; i++)
+                    items.push(task.stream_drag_pos[i]);
+                items.join(",");
 
-	var cache_view = document.getElementById('cache_view_' + task_index);
-	var context = cache_view.getContext('2d');
-	context.fillStyle = '#fff';
-	context.fillRect(0, 0, cache_view.width, cache_view.clientHeight);
+                $('#stream_drag_pos_' + task_index).text(items.toString());
 
-	//调整cache view表示的起始范围
-	if (task.type == 0)
-	{
-		//点播
-		row_width = 20*1024*1024;
-	}
-	else if (task.type == 3)
-	{
-		//直播
-		row_width = 1*1024*1024;
-	}
+                items = []
+                for (var i = 0; i < task.stream_send_pos.length; i++)
+                    items.push(task.stream_send_pos[i]);
+                items.join(",");
+                $('#stream_send_pos_' + task_index).text(items.toString());
 
-	var dl_ranges = task.downloaded_ranges;
-	if (dl_ranges.length!=0)
-	{
-		var tail_range = dl_ranges[dl_ranges.length-1];
-		var tail_pos = tail_range[1];
-		var head_range = dl_ranges[0];
-		var head_pos = head_range[0];
+                $('#download_speed_' + task_index).text(Math.round(task.download_speed / 1024));
 
-		var send_pos = head_pos;
-		for(var i = 0; i < task.stream_send_pos.length; i++)
-		{
-			if(task.stream_send_pos[i] < send_pos && send_pos != 0)
-			{
-				send_pos = task.stream_send_pos[i];
-			}
-		}
+                $('#dl_limiter_' + task_index).text(speed / 1024);
 
-		if (send_pos < view_start_array[task_index] || tail_pos >= view_start_array[task_index] + row_width*row_num)
-		{
-			view_start_array[task_index] = send_pos;
-		}
-	}
 
-	$('#view_start_' + task_index).text(view_start_array[task_index]);
+                var cache_view = document.getElementById('cache_view_' + task_index);
+                var context = cache_view.getContext('2d');
+                context.fillStyle = '#fff';
+                context.fillRect(0, 0, cache_view.width, cache_view.clientHeight);
 
-	//已下载ranges
-	var downloaded_ranges = task.downloaded_ranges;
-	for(var i = 0; i < downloaded_ranges.length; i++)
-	{
-		var range = downloaded_ranges[i];
+                //调整cache view表示的起始范围
+                if (task.type == 0) {
+                    //点播
+                    row_width = 20 * 1024 * 1024;
+                }
+                else if (task.type == 3) {
+                    //直播
+                    row_width = 1 * 1024 * 1024;
+                }
 
-		display_range(cache_view, '#0072b5', range[0]-view_start_array[task_index], range[1]-view_start_array[task_index]);
-	}
+                var dl_ranges = task.downloaded_ranges;
+                if (dl_ranges.length != 0) {
+                    var tail_range = dl_ranges[dl_ranges.length - 1];
+                    var tail_pos = tail_range[1];
+                    var head_range = dl_ranges[0];
+                    var head_pos = head_range[0];
 
-	//重叠下载ranges
-	var overlap_download_ranges = task.overlap_download_ranges;
-	for(var i = 0; i < overlap_download_ranges.length; i++)
-	{
-		var range = overlap_download_ranges[i];
-		display_range(cache_view, '#f4d313', range[0]-view_start_array[task_index], range[1]-view_start_array[task_index]);
-	}
+                    var send_pos = head_pos;
+                    for (var i = 0; i < task.stream_send_pos.length; i++) {
+                        if (task.stream_send_pos[i] < send_pos && send_pos != 0) {
+                            send_pos = task.stream_send_pos[i];
+                        }
+                    }
 
-	var range_height = cache_view.clientHeight/160;
+                    if (send_pos < view_start_array[task_index] || tail_pos >= view_start_array[task_index] + row_width * row_num) {
+                        view_start_array[task_index] = send_pos;
+                    }
+                }
 
-	//紧急区
-	var urgent_start = task.urgent_start;
-	var urgent_end = task.urgent_end;
-	display_pos(cache_view, '#000', urgent_start-view_start_array[task_index], 0, 2, range_height);
-	display_pos(cache_view, '#000', urgent_end-view_start_array[task_index], 0, 2, range_height);
+                $('#view_start_' + task_index).text(view_start_array[task_index]);
 
-	//下载点
-	display_pos(cache_view, '#d62c1a', task.download_pos-view_start_array[task_index], 0, 3, range_height);
+                //已下载ranges
+                var downloaded_ranges = task.downloaded_ranges;
+                for (var i = 0; i < downloaded_ranges.length; i++) {
+                    var range = downloaded_ranges[i];
 
-	//拖动点
-	for(var i = 0; i < task.stream_drag_pos.length; i++)
-		display_pos(cache_view, '#2ecc71', task.stream_drag_pos[i]-view_start_array[task_index], 0, 3, range_height - 2);
+                    display_range(cache_view, '#0072b5', range[0] - view_start_array[task_index], range[1] - view_start_array[task_index]);
+                }
 
-	//推送点
-	for(var i = 0; i < task.stream_send_pos.length; i++)
-		display_pos(cache_view, '#33caf2', task.stream_send_pos[i]-view_start_array[task_index], 2, 3, range_height - 2);
-}
+                //重叠下载ranges
+                var overlap_download_ranges = task.overlap_download_ranges;
+                for (var i = 0; i < overlap_download_ranges.length; i++) {
+                    var range = overlap_download_ranges[i];
+                    display_range(cache_view, '#f4d313', range[0] - view_start_array[task_index], range[1] - view_start_array[task_index]);
+                }
 
-function update()
-{
-    var x = document.getElementById("myText").value;
-  //$.getJSON('http://127.0.0.1:9090/json?callback=?', function(json) {
-  $.getJSON('http://' + x + ':9090/json?callback=?', function(json) {
+                var range_height = cache_view.clientHeight / 160;
 
-	//$('#t0').hide();
-	//$('#t1').hide();
+                //紧急区
+                var urgent_start = task.urgent_start;
+                var urgent_end = task.urgent_end;
+                display_pos(cache_view, '#000', urgent_start - view_start_array[task_index], 0, 2, range_height);
+                display_pos(cache_view, '#000', urgent_end - view_start_array[task_index], 0, 2, range_height);
 
-	$('#total_dl_limit').text(json.total_dl_limit);
-	$('#total_up_limit').text(json.total_up_limit/1024);
-  console.log(json.total_dl_limit);
-	for(var i = 0; i < json.tasks.length; i++)
-	{
-		//$('#t' + i).show();
-		update_task(json.tasks[i], i, json.total_dl_limit);
-	}
-	});
-}
+                //下载点
+                display_pos(cache_view, '#d62c1a', task.download_pos - view_start_array[task_index], 0, 3, range_height);
 
-$(document).ready(function(){setInterval(update, 1000); });
+                //拖动点
+                for (var i = 0; i < task.stream_drag_pos.length; i++)
+                    display_pos(cache_view, '#2ecc71', task.stream_drag_pos[i] - view_start_array[task_index], 0, 3, range_height - 2);
 
-</script>
+                //推送点
+                for (var i = 0; i < task.stream_send_pos.length; i++)
+                    display_pos(cache_view, '#33caf2', task.stream_send_pos[i] - view_start_array[task_index], 2, 3, range_height - 2);
+            }
 
-</body>
-</div>
+            function update() {
+                var x = document.getElementById("myText").value;
+                //$.getJSON('http://127.0.0.1:9090/json?callback=?', function(json) {
+                $.getJSON('http://' + x + ':9090/json?callback=?', function (json) {
+
+                    //$('#t0').hide();
+                    //$('#t1').hide();
+
+                    $('#total_dl_limit').text(json.total_dl_limit);
+                    $('#total_up_limit').text(json.total_up_limit / 1024);
+                    console.log(json.total_dl_limit);
+                    for (var i = 0; i < json.tasks.length; i++) {
+                        //$('#t' + i).show();
+                        update_task(json.tasks[i], i, json.total_dl_limit);
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                setInterval(update, 1000);
+            });
+
+        </script>
+
+        </body>
+    </div>
 {% endblock %}

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
+
 pkg_name = 'bf.cloud.bfclouddemowithui'
+
 
 def cpu():
     # os.popen('adb wait-for-device')
@@ -11,10 +13,10 @@ def cpu():
         kernel = float(cpuinfo[7][:-1])
     return (user, kernel)
 
+
 def mem():
     cmd_mem = os.popen('adb shell dumpsys meminfo bf.cloud.bfclouddemowithui | grep TOTAL')
     for i in cmd_mem.readlines():
         meminfo = i.split(' ')
     list.sort(meminfo)
     return int(meminfo[-4])
-

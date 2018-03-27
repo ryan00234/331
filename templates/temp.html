@@ -4,49 +4,49 @@
 
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-        <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
+        <meta name="viewport" content="initial-scale = 1, user-scalable = no">
         <style>
-            canvas{
+            canvas {
             }
         </style>
     </head>
     <body>
-        <canvas id="canvas1" height="300" width="400" ></canvas>
-        <canvas id="canvas2" height="300" width="300" class="pull-right"></canvas>
-        <button id="random">random</button>
+    <canvas id="canvas1" height="300" width="400"></canvas>
+    <canvas id="canvas2" height="300" width="300" class="pull-right"></canvas>
+    <button id="random">random</button>
 
     <script src="../static/js/chart.js"></script>
     <script>
         var lineChartData = {
-　　　　　　　// x轴的标示
-            labels : [{% for item in label %}
-                  "{{item}}",
-              {% endfor %}],
-　　　　　　　// 数据，数组中的每一个object代表一条线
-            datasets : [
+            // x轴的标示
+            labels: [{% for item in label %}
+                "{{item}}",
+            {% endfor %}],
+            // 数据，数组中的每一个object代表一条线
+            datasets: [
                 {
-　　　　　　　　　　　　// 颜色的使用类似于CSS，你也可以使用RGB、HEX或者HSL
-　　　　　　　　　　　　// rgba颜色中最后一个值代表透明度
-　　　　　　　　　　　　// 填充颜色
-                    fillColor : "rgba(220,220,220,0.5)",
-　　　　　　　　　　　　// 线的颜色
-                    strokeColor : "rgba(220,220,220,1)",
-　　　　　　　　　　　　// 点的填充颜色
-                    pointColor : "rgba(220,220,220,1)",
-　　　　　　　　　　　　// 点的边线颜色
-                    pointStrokeColor : "#fff",
-　　　　　　　　　　　　// 与x轴标示对应的数据
-                    data : [{% for item in data1 %}
-                      {{item}},
+                    // 颜色的使用类似于CSS，你也可以使用RGB、HEX或者HSL
+                    // rgba颜色中最后一个值代表透明度
+                    // 填充颜色
+                    fillColor: "rgba(220,220,220,0.5)",
+                    // 线的颜色
+                    strokeColor: "rgba(220,220,220,1)",
+                    // 点的填充颜色
+                    pointColor: "rgba(220,220,220,1)",
+                    // 点的边线颜色
+                    pointStrokeColor: "#fff",
+                    // 与x轴标示对应的数据
+                    data: [{% for item in data1 %}
+                        {{item}},
                     {% endfor %}]
                 },
                 {
-                    fillColor : "rgba(151,187,205,0)",
-                    strokeColor : "rgba(151,187,205,1)",
-                    pointColor : "rgba(151,187,205,1)",
-                    pointStrokeColor : "#fff",
-                    data : [{% for item in data2 %}
-                      {{item}},
+                    fillColor: "rgba(151,187,205,0)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    data: [{% for item in data2 %}
+                        {{item}},
                     {% endfor %}]
                 }
             ]

@@ -1,108 +1,112 @@
 {% extends "base.html" %}
-{% block page_content %} <div class="page-header">
+{% block page_content %}
+    <div class="page-header">
 
-<html>
-<head>
-	<title>Debug UDP tranmissiton</title>
-	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.2.min.js"></script>
-	
-    <style type="text/css">
-      {
-        height: 800px; width: 100%; border: 1px solid black;
-      }
-    </style>
-</head>
-<body>
+        <html>
+        <head>
+            <title>Debug UDP tranmissiton</title>
+            <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.7.2.min.js"></script>
 
-<div class="input-group" style="width: 25%">
+            <style type="text/css">
+                {
+                    height: 800px
+                ;
+                    width: 100%
+                ;
+                    border: 1px solid black
+                ;
+                }
+            </style>
+        </head>
+        <body>
+
+        <div class="input-group" style="width: 25%">
     <span class="input-group-btn">
-        <button onclick="update()" class="btn btn-default" type="button">Mobile IP <span class="glyphicon glyphicon-hand-right"></span> </button>
+        <button onclick="update()" class="btn btn-default" type="button">Mobile IP <span
+                class="glyphicon glyphicon-hand-right"></span> </button>
     </span>
-    <input type="text" class="form-control" id="myText" value="192.168.2.">
-</div>
+            <input type="text" class="form-control" id="myText" value="192.168.2.">
+        </div>
 
-<h3>Task1 Connection List</h3>
-<div id="task1_pipes_tbl"></div>
+        <h3>Task1 Connection List</h3>
+        <div id="task1_pipes_tbl"></div>
 
-<br/><br/>
+        <br/><br/>
 
-<h3>Task2 Connection List</h3>
-<div id="task2_pipes_tbl"></div>
+        <h3>Task2 Connection List</h3>
+        <div id="task2_pipes_tbl"></div>
 
-<br/><br/>
+        <br/><br/>
 
-<h3>Task3 Connection List</h3>
-<div id="task3_pipes_tbl"></div>
+        <h3>Task3 Connection List</h3>
+        <div id="task3_pipes_tbl"></div>
 
-<script type="text/javascript">
-	
-function to_table(all_connection_info, connection_num)
- {
-   //sort by downloader speed
-   all_connection_info.sort( function(a, b) { return a.downspeed < b.downspeed ? 1 : -1;} );
+        <script type="text/javascript">
 
-   //show 
-   var tbl_begin_html = '<table cellpadding="0" cellspacing="0" border="1" width="100%">' + '<td align="center">externalip</td> <td align="center">internalip</td><td align="center">type</th><td align="center">port</td><td align="center">connected</td><td align="center">downspeed(KB)</td>';
-   var tbl_end_html   = "</table>";
+            function to_table(all_connection_info, connection_num) {
+                //sort by downloader speed
+                all_connection_info.sort(function (a, b) {
+                    return a.downspeed < b.downspeed ? 1 : -1;
+                });
 
-   var cols = 6;
-   var task1_tbl_html = tbl_begin_html;
-   var task2_tbl_html = tbl_begin_html;
-   var task3_tbl_html = tbl_begin_html;
-   
-   for(var i=0; i<connection_num; i++)
-   {
-     var textHTML="";
-     textHTML += '<tr align="center" height="20">';
-     textHTML += "<td>" + all_connection_info[i].externalip + "</td>";
-     textHTML += "<td>" + all_connection_info[i].internalip + "</td>";
-     textHTML += "<td>" + all_connection_info[i].type + "</td>";
-     textHTML += "<td>" + all_connection_info[i].port + "</td>";
-     textHTML += "<td>" + all_connection_info[i].connected + "</td>";
-     textHTML += "<td>" + all_connection_info[i].downspeed + "</td>";
-     textHTML +="</tr>";
+                //show
+                var tbl_begin_html = '<table cellpadding="0" cellspacing="0" border="1" width="100%">' + '<td align="center">externalip</td> <td align="center">internalip</td><td align="center">type</th><td align="center">port</td><td align="center">connected</td><td align="center">downspeed(KB)</td>';
+                var tbl_end_html = "</table>";
 
-     if(all_connection_info[i].task_num==1)
-     {
-       task1_tbl_html += textHTML;
-     }
-     else if (all_connection_info[i].task_num==2)
-     {
-       task2_tbl_html += textHTML;
-     }
-     else if (all_connection_info[i].task_num==3)
-     {
-       task3_tbl_html += textHTML;
-     }
-   }
-   
-   task1_tbl_html += tbl_end_html;
-   task2_tbl_html += tbl_end_html;
-   task3_tbl_html += tbl_end_html;
+                var cols = 6;
+                var task1_tbl_html = tbl_begin_html;
+                var task2_tbl_html = tbl_begin_html;
+                var task3_tbl_html = tbl_begin_html;
 
-   document.getElementById("task1_pipes_tbl").innerHTML = task1_tbl_html;
-   document.getElementById("task2_pipes_tbl").innerHTML = task2_tbl_html;
-   document.getElementById("task3_pipes_tbl").innerHTML = task3_tbl_html;
-}
+                for (var i = 0; i < connection_num; i++) {
+                    var textHTML = "";
+                    textHTML += '<tr align="center" height="20">';
+                    textHTML += "<td>" + all_connection_info[i].externalip + "</td>";
+                    textHTML += "<td>" + all_connection_info[i].internalip + "</td>";
+                    textHTML += "<td>" + all_connection_info[i].type + "</td>";
+                    textHTML += "<td>" + all_connection_info[i].port + "</td>";
+                    textHTML += "<td>" + all_connection_info[i].connected + "</td>";
+                    textHTML += "<td>" + all_connection_info[i].downspeed + "</td>";
+                    textHTML += "</tr>";
+
+                    if (all_connection_info[i].task_num == 1) {
+                        task1_tbl_html += textHTML;
+                    }
+                    else if (all_connection_info[i].task_num == 2) {
+                        task2_tbl_html += textHTML;
+                    }
+                    else if (all_connection_info[i].task_num == 3) {
+                        task3_tbl_html += textHTML;
+                    }
+                }
+
+                task1_tbl_html += tbl_end_html;
+                task2_tbl_html += tbl_end_html;
+                task3_tbl_html += tbl_end_html;
+
+                document.getElementById("task1_pipes_tbl").innerHTML = task1_tbl_html;
+                document.getElementById("task2_pipes_tbl").innerHTML = task2_tbl_html;
+                document.getElementById("task3_pipes_tbl").innerHTML = task3_tbl_html;
+            }
 
 
+            function update() {
+                var x = document.getElementById("myText").value;
+                $.getJSON('http://' + x + ':9090/connectionjson?callback=?', function (json) {
+                    //$.getJSON('http://127.0.0.1:9090/connectionjson?callback=?', function(json){
+                    to_table(json, json.length);
+                });
+            }
 
-function update()
-{
-    var x = document.getElementById("myText").value;
-  $.getJSON('http://' + x +':9090/connectionjson?callback=?', function(json){
-  //$.getJSON('http://127.0.0.1:9090/connectionjson?callback=?', function(json){ 
-				to_table(json, json.length);  
-	});
-}
+            $(document).ready(function () {
+                setInterval(update, 500);
+            });
 
-$(document).ready(function(){setInterval(update, 500); });
- 
-</script>
+        </script>
 
-</body>
+        </body>
 
-</html>
+        </html>
 
     </div>
 {% endblock %}

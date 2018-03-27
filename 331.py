@@ -7,7 +7,7 @@ import temp
 device_id = '192.168.17.157:5555'
 
 app = Flask(__name__)
-app.config.from_object('config')
+# app.config.from_object('config')
 
 bootstrap = Bootstrap(app)
 moment = Moment(app)
